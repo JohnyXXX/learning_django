@@ -6,7 +6,13 @@
 </head>
 <body>
 
-<p>Hello World!</p>
-
+<h1>Доска объявлений</h1>
+{% for item in data %}
+    <h3>{{ forloop.counter }}. {{ item.1.title|upper }}</h3>
+    <p>Дата создания: {{ item.0.create_data }}</p>
+    <p>Описание: {{ item.2.content|title }}</p>
+    <p>Цена: {{ item.3.price|floatformat:'2' }} руб.</p>
+    <hr>
+{% endfor %}
 </body>
 </html>
