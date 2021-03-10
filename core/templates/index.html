@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Главная - Доска объявлений</title>
 </head>
 <body>
 
-<h1>Доска объявлений</h1>
+<h1>Объявления</h1>
 {% for item in data %}
-    <h3>{{ forloop.counter }}. {{ item.1.title|upper }}</h3>
-    <p>Дата создания: {{ item.0.create_data }}</p>
-    <p>Описание: {{ item.2.content|title }}</p>
-    <p>Цена: {{ item.3.price|floatformat:'2' }} руб.</p>
+    <div>
+        <h3>{{ forloop.counter }}. {{ item.1.title|upper }}</h3>
+        <p>Дата создания: {{ item.0.create_data }}</p>
+        <p>Описание: {{ item.2.content|title }}</p>
+        <p>Цена: {{ item.3.price|floatformat:'2' }} руб.</p>
+    </div>
     <hr>
 {% endfor %}
 </body>
