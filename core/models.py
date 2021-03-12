@@ -25,3 +25,18 @@ class Rubric(models.Model):
         verbose_name = 'Рубрика'
         verbose_name_plural = 'Рубрики'
         ordering = ['name']
+
+
+class Spare(models.Model):
+    name = models.CharField(max_length=40)
+
+
+class Machine(models.Model):
+    name = models.CharField(max_length=30)
+    spares = models.ManyToManyField('Spare', through='Kit', through_fields=('machine', 'spare'))
+
+
+class Kit(models.Model):
+    machine = models.ForeignKey('Machine', on_delete=models.CASCADE)
+    spare = models.ForeignKey('Spare', on_delete=models.CASCADE)
+    count = models.IntegerField()
