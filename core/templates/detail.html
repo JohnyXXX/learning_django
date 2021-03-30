@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+{% block title %}
+    {{ board.title }}
+{% endblock %}
+
+{% block content %}
+    <p>Рубрика: {{ board.rubric.name }}</p>
+    <h2>{{ board.title }}</h2>
+    <p>{{ board.content }}</p>
+    <p>Цена: {{ board.price }}</p>
+{% endblock %}

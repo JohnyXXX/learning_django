@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block title %}
+    Удаление объявления
+{% endblock %}
+
+{% block content %}
+    <h2>Удаление объявления</h2>
+    <p>Рубрика: {{ board.rubric.name }}</p>
+    <p>Товар: {{ board.title }}</p>
+    <p>{{ board.content }}</p>
+    <p>Цена: {{ board.price }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Удалить">
+    </form>
+{% endblock %}
