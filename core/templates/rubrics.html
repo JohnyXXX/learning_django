@@ -11,10 +11,16 @@
             <h2>
                 <a href="{% url 'detail' pk=board.pk %}">{{ board.title }}</a>
             </h2>
+            {% if board.photo %}
+                <img src="{{ board.photo.url }}" alt="" width="350">
+            {% endif %}
             <p>{{ board.content }}</p>
             <p>{{ board.published_data|date:'d.m.Y H:i:s' }}</p>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'edit' pk=board.pk %}">Изменить</a>
+                <a href="{% url 'delete' pk=board.pk %}">Удалить</a>
+            {% endif %}
         </div>
-        <a href="{% url 'edit' pk=board.pk %}">Изменить</a>
-        <a href="{% url 'delete' pk=board.pk %}">Удалить</a>
+        <hr>
     {% endfor %}
 {% endblock %}

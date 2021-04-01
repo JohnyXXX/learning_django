@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 class Board(models.Model):
     title = models.CharField(max_length=50, verbose_name='Товар')
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name='Фотография')
     content = models.TextField(null=True, blank=True, verbose_name='Описание')
     price = models.FloatField(null=True, blank=True, verbose_name='Цена')
     published_data = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Дата публикации')

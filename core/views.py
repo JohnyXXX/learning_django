@@ -1,9 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
-from .forms import BoardForm
+from .forms import BoardForm, UserRegisterForm, UserLoginForm
 from .models import Board, Rubric
 
 
@@ -77,3 +80,41 @@ class BoardDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
         return context
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('index')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'register.html', context)
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserLoginForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'login.html', context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
